@@ -1,0 +1,21 @@
+{
+  "name": "c3ide2-types",
+  "version": "1.0.0",
+  "description": "Addon config type definitions for C3IDE2",
+  "types": "./types.d.ts",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MasterPose/c3ide2-types.git"
+  },
+  "author": {
+    "name": "Master Pose",
+    "email": "contact@masterpose.dev",
+    "url": "https://masterpose.dev"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MasterPose/c3ide2-types/issues"
+  },
+  "homepage": "https://github.com/MasterPose/c3ide2-types#readme"
+}
