@@ -18,7 +18,18 @@ After installing you'll have access to the types.
 
 Using JSDoc, you'll be able to type the config:
 
-// Put image
+![image](https://github.com/MasterPose/c3ide2-types/assets/46875694/a5bf2aa6-632c-4827-8488-331add4a60e2)
+
+You should have something like this:
+
+```js
+/** @type {import("c3ide2-types").Behavior} */
+const Behavior = { 
+  //...
+};
+
+module.exports = Behavior;
+```
 
 >[!CAUTION]
 > Do not import Types as a JS module like this: `import { Behavior } from "c3ide2-types";`. They're TypeScript interfaces, and are not understood by JavaScript. Use them only with JSDoc.
@@ -27,4 +38,4 @@ Using JSDoc, you'll be able to type the config:
 
 After that, your code editor IntelliSense should start autocompleting the options.
 
-// Put image
+![image](https://github.com/MasterPose/c3ide2-types/assets/46875694/4ac7eebd-006f-4401-acef-3b164b8ceb53)
