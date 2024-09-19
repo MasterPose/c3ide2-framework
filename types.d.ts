@@ -30,49 +30,58 @@ interface Property {
     };
 }
 
-interface Action {
-    category: string;
+interface ActionParamBase {
+    id: string;
+    name: string;
+    desc: string;
+    type:
+    | "string"
+    | "number"
+    | "any"
+    | "boolean"
+    | "cmp"
+    | "object"
+    | "objectname"
+    | "layer"
+    | "layout"
+    | "keyb"
+    | "instancevar"
+    | "instancevarbool"
+    | "eventvar"
+    | "eventvarbool"
+    | "animation"
+    | "objinstancevar";
+    initialValue?: any;
+    allowedPluginIds?: string[];
+}
+
+interface ActionParamCombo extends Omit<ActionParamBase, 'type'> {
+    type: "combo"
+    items: Array<{ [key: string]: string }>;
+}
+
+type ActionParam =
+    | ActionParamBase
+    | ActionParamCombo
+
+interface Action<ACE_CATEGORIES extends string> {
+    category: ACE_CATEGORIES;
     forward?: string;
     handler?: string;
     autoScriptInterface?: boolean;
     highlight?: boolean;
     deprecated?: boolean;
     isAsync?: boolean;
-    params?: Array<{
-        id: string;
-        name: string;
-        desc: string;
-        type:
-        | "string"
-        | "number"
-        | "any"
-        | "boolean"
-        | "combo"
-        | "cmp"
-        | "object"
-        | "objectname"
-        | "layer"
-        | "layout"
-        | "keyb"
-        | "instancevar"
-        | "instancevarbool"
-        | "eventvar"
-        | "eventvarbool"
-        | "animation"
-        | "objinstancevar";
-        initialValue?: any;
-        items?: Array<{ [key: string]: string }>;
-        allowedPluginIds?: string[];
-    }>;
+    params?: Array<ActionParam>;
     listName: string;
     displayText: string;
     description: string;
 }
 
-interface Condition {
+interface Condition<CATEGORIES extends string> {
     listName: string;
     displayText: string;
-    category: string;
+    category: CATEGORIES;
     description: string;
     forward?: string;
     handler?: string;
@@ -85,32 +94,7 @@ interface Condition {
     isLooping?: boolean;
     isInvertible?: boolean;
     isCompatibleWithTriggers?: boolean;
-    params: Array<{
-        id: string;
-        name: string;
-        desc: string;
-        type:
-        | "string"
-        | "number"
-        | "any"
-        | "boolean"
-        | "combo"
-        | "cmp"
-        | "object"
-        | "objectname"
-        | "layer"
-        | "layout"
-        | "keyb"
-        | "instancevar"
-        | "instancevarbool"
-        | "eventvar"
-        | "eventvarbool"
-        | "animation"
-        | "objinstancevar";
-        initialValue?: any;
-        items?: Array<{ [key: string]: string }>;
-        allowedPluginIds?: string[];
-    }>;
+    params: Array<ActionParam>;
 }
 
 interface Addon {
@@ -131,19 +115,19 @@ interface ProjectAddon extends Addon {
     githubUrl?: string;
 }
 
-interface AceAddon extends ProjectAddon {
+interface AceAddon<ACE_CATEGORIES extends string = string> extends ProjectAddon {
     properties: Property[];
     aceCategories: {
-        [key: string]: string;
+        [key in ACE_CATEGORIES]: string
     };
     Acts: {
-        [key: string]: Action;
+        [key: string]: Action<ACE_CATEGORIES>;
     };
     Cnds: {
-        [key: string]: Condition;
+        [key: string]: Condition<ACE_CATEGORIES>;
     };
     Exps: {
-        [key: string]: Expression;
+        [key: string]: Expression<ACE_CATEGORIES>;
     };
     fileDependencies: Array<{
         filename: string;
@@ -156,8 +140,8 @@ interface AceAddon extends ProjectAddon {
     }>;
 }
 
-interface Expression {
-    category: string;
+interface Expression<ACE_CATEGORIES extends string> {
+    category: ACE_CATEGORIES;
     description: string;
     forward?: string;
     handler?: string;
@@ -216,7 +200,7 @@ export interface Effect extends ProjectAddon {
     }>;
 }
 
-export interface Plugin extends AceAddon {
+export interface Plugin<ACE_CATEGORIES extends string> extends AceAddon<ACE_CATEGORIES> {
     type:
     | "object"
     | "world"
