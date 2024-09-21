@@ -1,6 +1,6 @@
 {
   "name": "c3ide2-types",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Addon config type definitions for C3IDE2",
   "types": "./types.d.ts",
   "scripts": {},
